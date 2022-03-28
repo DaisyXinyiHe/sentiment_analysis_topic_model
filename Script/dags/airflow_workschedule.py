@@ -4,7 +4,7 @@ try:
     from airflow.operators.bash_operator import BashOperator
     from airflow.operators.python_operator import PythonOperator
     from datetime import datetime, timedelta
-    # from create_database import scrape_tweets
+    from create_database import scrape_tweets
 
     def fetchtweets():
         return None
