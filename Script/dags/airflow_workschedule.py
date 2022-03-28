@@ -33,35 +33,35 @@ try:
         schedule_interval=schedule_interval
     )
 
-    fetch_tweets = PythonOperator(
-        task_id='fetch_tweets',
-        python_callable=fetchtweets,
-        dag=dag)
-
-    clean_tweets = PythonOperator(
-        task_id='clean_tweets',
-        python_callable=cleantweets,
-        dag=dag)
-
-    clean_tweets.set_upstream(fetch_tweets)
-
-    # t1=PythonOperator(
-    #     task_id='scrape_tweets_and_save_db',
-    #     python_callable= scrape_tweets,
-    #     op_kwargs = {"keywords":"[PeacockTV]","database": "tweets.db", "start_date":"datetime.now().date()-1", "end_date":"datetime.now().date()", "num_tweet":"1000"},
-    #     dag = dag
-
-    # )
-
-    # t2 = BashOperator(
-    #     task_id='topic_modeling',
-    #     bash_command='python3 BERTopic_modeling.py',
-    #     retries=1,
+    # fetch_tweets = PythonOperator(
+    #     task_id='fetch_tweets',
+    #     python_callable=fetchtweets,
     #     dag=dag)
 
+    # clean_tweets = PythonOperator(
+    #     task_id='clean_tweets',
+    #     python_callable=cleantweets,
+    #     dag=dag)
+
+    # clean_tweets.set_upstream(fetch_tweets)
+
+    t1=PythonOperator(
+        task_id='scrape_tweets_and_save_db',
+        python_callable= scrape_tweets,
+        op_kwargs = {"keywords":"[PeacockTV]","database": "tweets.db", "start_date":"datetime.now().date()-1", "end_date":"datetime.now().date()", "num_tweet":"1000"},
+        dag = dag
+
+    )
+
+    t2 = BashOperator(
+        task_id='topic_modeling',
+        bash_command='python3 BERTopic_modeling.py',
+        retries=1,
+        dag=dag)
 
 
-    # t1.set_downstream(t2)
+
+    t1.set_downstream(t2)
 
 except Exception as e:
     print('Error:{}'.format(e))
