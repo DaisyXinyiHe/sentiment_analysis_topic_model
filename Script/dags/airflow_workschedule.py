@@ -48,7 +48,7 @@ try:
     t1=PythonOperator(
         task_id='scrape_tweets_and_save_db',
         python_callable= scrape_tweets,
-        op_kwargs = {"keywords":"[PeacockTV]","database": "tweets.db", "start_date":"datetime.now().date()-1", "end_date":"datetime.now().date()", "num_tweet":"1000"},
+        op_kwargs = {"keywords":"[PeacockTV]","database": "tweets.db", "start_date":"None", "end_date":"datetime.now().date()", "num_tweet":"1000"},
         dag = dag
 
     )
