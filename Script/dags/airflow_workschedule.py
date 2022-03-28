@@ -4,7 +4,7 @@ try:
     from airflow.operators.bash_operator import BashOperator
     from airflow.operators.python_operator import PythonOperator
     from datetime import datetime, timedelta
-    from create_database import scrape_tweets
+    # from create_database import scrape_tweets
 
     def fetchtweets():
         return None
@@ -45,10 +45,17 @@ try:
 
     # clean_tweets.set_upstream(fetch_tweets)
 
-    t1=PythonOperator(
-        task_id='scrape_tweets_and_save_db',
-        python_callable= scrape_tweets,
-        op_kwargs = {"keywords":"[PeacockTV]","database": "tweets.db", "start_date":"None", "end_date":"datetime.now().date()", "num_tweet":"1000"},
+    # t1=PythonOperator(
+    #     task_id='scrape_tweets_and_save_db',
+    #     python_callable= scrape_tweets,
+    #     op_kwargs = {"keywords":"[PeacockTV]","database": "tweets.db", "start_date":"None", "end_date":"datetime.now().date()", "num_tweet":"1000"},
+    #     dag = dag
+
+    # )
+
+    t1=BashOperator(
+        task_id='scrape_tweets',
+        bash_command = 'python3 data_collection.py',
         dag = dag
 
     )

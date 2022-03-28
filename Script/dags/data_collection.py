@@ -8,7 +8,7 @@ if __name__ == '__main__':
     create_job_tweet_tables(database)
     keywords = ['ukraine', 'russia']
     try:
-        scrape_tweets(keywords,database = database, start_date = None, end_date = '2022-03-15', num_tweet = 1000)
+        scrape_tweets(keywords,database = database, start_date = None, end_date = datetime.now().date(), num_tweet = 10)
     except:
         print('error')
     
