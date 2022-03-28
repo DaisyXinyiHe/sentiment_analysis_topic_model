@@ -1,0 +1,8 @@
+pandas
+numpy
+umap
+hdbscan
+bertopic
+matplotlib
+sqlalchemy
+snscrape
